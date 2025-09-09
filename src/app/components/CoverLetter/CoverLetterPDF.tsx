@@ -40,17 +40,17 @@ const createMinimalStyles = (settings: any) => {
       flex: 1,
     },
     name: {
-      fontSize: fontSizeValue + 6, // Ridotto da +8
+      fontSize: fontSizeValue + 8, // Ripristinato per essere identico al render HTML
       fontWeight: 'bold',
       marginBottom: 2 * spacingMultiplier, // Ridotto da 4
       color: '#0F172A', // Nome con colore del tema minimal
-      lineHeight: 1.1, // Ridotto da 1.2
+      lineHeight: 1.2, // Sincronizzato con render HTML
     },
     title: {
-      fontSize: fontSizeValue, // Ridotto da +1
+      fontSize: fontSizeValue + 1, // Ripristinato per essere identico al render HTML
       color: '#64748B', // Ruolo con colore del tema minimal
       fontWeight: 'medium',
-      lineHeight: 1.2, // Ridotto da 1.3
+      lineHeight: 1.3, // Sincronizzato con render HTML
     },
     contact: {
       display: 'flex',
@@ -91,7 +91,7 @@ const createMinimalStyles = (settings: any) => {
     },
     paragraph: {
       fontSize: fontSizeValue - 0.5,
-      lineHeight: 1.4, // Ridotto da 1.6
+      lineHeight: 1.6, // Sincronizzato con render HTML
       textAlign: 'justify',
       marginBottom: 8 * spacingMultiplier, // Ridotto da 12
     },
