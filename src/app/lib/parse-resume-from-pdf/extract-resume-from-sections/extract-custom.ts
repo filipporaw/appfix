@@ -498,9 +498,9 @@ const isCustomSectionTitle = (line: TextItem[]): boolean => {
     text.toLowerCase().includes(keyword.toLowerCase())
   );
   
-  // Controlla se è un titolo breve (max 4 parole per essere più permissivo)
+  // Controlla se è un titolo breve (max 5 parole per essere più permissivo)
   const wordCount = text.split(/\s+/).length;
-  const isShortTitle = wordCount <= 4;
+  const isShortTitle = wordCount <= 5;
   
   // Controlla se inizia con maiuscola
   const startsWithCapital = /^[A-Z]/.test(text);
@@ -511,13 +511,28 @@ const isCustomSectionTitle = (line: TextItem[]): boolean => {
   // Controlla se è tutto maiuscolo (anche senza essere in grassetto)
   const isAllUpperCase = hasLetterAndIsAllUpperCase(textItem);
   
+  // Controlla se è un titolo con due punti alla fine (es. "Certificazioni:", "Lingue:")
+  const hasColonAtEnd = text.endsWith(':');
+  
+  // Controlla se è un titolo con trattini o punti (es. "Certificazioni -", "Lingue.")
+  const hasTitlePunctuation = /[-\.]$/.test(text);
+  
   // Un titolo è valido se:
   // 1. Ha keyword custom E è breve E inizia con maiuscola, OPPURE
   // 2. È in grassetto E è breve E inizia con maiuscola, OPPURE  
-  // 3. È tutto maiuscolo E è breve E inizia con maiuscola
+  // 3. È tutto maiuscolo E è breve E inizia con maiuscola, OPPURE
+  // 4. Ha keyword custom E ha punteggiatura di titolo, OPPURE
+  // 5. È in grassetto E ha punteggiatura di titolo, OPPURE
+  // 6. È tutto maiuscolo E ha punteggiatura di titolo
   return (hasCustomKeyword && isShortTitle && startsWithCapital) ||
          (isBoldTitle && isShortTitle && startsWithCapital) ||
-         (isAllUpperCase && isShortTitle && startsWithCapital);
+         (isAllUpperCase && isShortTitle && startsWithCapital) ||
+         (hasCustomKeyword && hasColonAtEnd) ||
+         (isBoldTitle && hasColonAtEnd) ||
+         (isAllUpperCase && hasColonAtEnd) ||
+         (hasCustomKeyword && hasTitlePunctuation) ||
+         (isBoldTitle && hasTitlePunctuation) ||
+         (isAllUpperCase && hasTitlePunctuation);
 };
 
 export const extractCustom = (sections: ResumeSectionToLines) => {

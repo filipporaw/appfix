@@ -12,14 +12,14 @@ const createDefaultStyles = (settings: any) => {
   const { fontSize, fontFamily, themeColor, spacing } = settings;
   const fontFamilyValue = ENGLISH_FONT_FAMILIES.includes(fontFamily) ? fontFamily : "Roboto";
   const fontSizeValue = parseInt(fontSize) || 11;
-  const spacingMultiplier = spacing === 'compact' ? 0.8 : 1.2;
+  const spacingMultiplier = spacing === 'compact' ? 0.6 : 0.8; // Ridotto per PDF più compatto
 
   return StyleSheet.create({
     page: {
       fontSize: fontSizeValue,
       fontFamily: fontFamilyValue,
-      padding: 40 * spacingMultiplier,
-      lineHeight: 1.5,
+      padding: 30 * spacingMultiplier, // Ridotto da 40
+      lineHeight: 1.4, // Ridotto da 1.5
       color: '#2d3748',
       backgroundColor: '#ffffff',
     },
@@ -27,8 +27,8 @@ const createDefaultStyles = (settings: any) => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 24 * spacingMultiplier,
-      paddingBottom: 16 * spacingMultiplier,
+      marginBottom: 16 * spacingMultiplier, // Ridotto da 24
+      paddingBottom: 12 * spacingMultiplier, // Ridotto da 16
       borderBottomWidth: 2,
       borderBottomColor: themeColor,
       borderBottomStyle: 'solid',
@@ -39,17 +39,17 @@ const createDefaultStyles = (settings: any) => {
       flex: 1,
     },
     name: {
-      fontSize: fontSizeValue + 8,
+      fontSize: fontSizeValue + 6, // Ridotto da +8
       fontWeight: 'bold',
-      marginBottom: 4 * spacingMultiplier,
-      color: '#1a202c', // Nome con colore originale
-      lineHeight: 1.2,
+      marginBottom: 2 * spacingMultiplier, // Ridotto da 4
+      color: '#1a202c',
+      lineHeight: 1.1, // Ridotto da 1.2
     },
     title: {
-      fontSize: fontSizeValue + 1,
-      color: themeColor, // Ruolo con colore del tema
+      fontSize: fontSizeValue, // Ridotto da +1
+      color: themeColor,
       fontWeight: 'medium',
-      lineHeight: 1.3,
+      lineHeight: 1.2, // Ridotto da 1.3
     },
     contact: {
       display: 'flex',
@@ -60,85 +60,51 @@ const createDefaultStyles = (settings: any) => {
       flex: '0 0 auto',
     },
     contactItem: {
-      marginBottom: 2 * spacingMultiplier,
+      marginBottom: 1 * spacingMultiplier, // Ridotto da 2
       textAlign: 'right',
     },
     date: {
       fontSize: fontSizeValue - 1,
       color: '#718096',
-      marginBottom: 16 * spacingMultiplier,
-      flexGrow: 1,
-      flexBasis: 0,
-      flexShrink: 1,
-      maxWidth: "100%",
-      textAlign: "left",
+      marginBottom: 12 * spacingMultiplier, // Ridotto da 16
     },
     companyInfo: {
-      marginBottom: 20 * spacingMultiplier,
+      marginBottom: 16 * spacingMultiplier, // Ridotto da 20
     },
     companyName: {
       fontSize: fontSizeValue + 1,
       fontWeight: 'semibold',
       color: '#2d3748', // Nome azienda con colore originale
-      marginBottom: 4 * spacingMultiplier,
-      flexGrow: 1,
-      flexBasis: 0,
-      flexShrink: 1,
-      maxWidth: "100%",
-      textAlign: "left",
+      marginBottom: 2 * spacingMultiplier, // Ridotto da 4
     },
     jobTitle: {
       fontSize: fontSizeValue,
       color: '#4a5568',
-      marginBottom: 16 * spacingMultiplier,
-      flexGrow: 1,
-      flexBasis: 0,
-      flexShrink: 1,
-      maxWidth: "100%",
-      textAlign: "left",
+      marginBottom: 12 * spacingMultiplier, // Ridotto da 16
     },
     greeting: {
       fontSize: fontSizeValue,
       fontWeight: 'medium',
       color: '#2d3748',
-      marginBottom: 12 * spacingMultiplier,
-      flexGrow: 1,
-      flexBasis: 0,
-      flexShrink: 1,
-      maxWidth: "100%",
-      textAlign: "left",
+      marginBottom: 8 * spacingMultiplier, // Ridotto da 12
     },
     paragraph: {
       fontSize: fontSizeValue - 0.5,
-      lineHeight: 1.6,
+      lineHeight: 1.4, // Ridotto da 1.6
       textAlign: 'justify',
-      marginBottom: 12 * spacingMultiplier,
-      flexGrow: 1,
-      flexBasis: 0,
-      flexShrink: 1,
-      maxWidth: "100%",
+      marginBottom: 8 * spacingMultiplier, // Ridotto da 12
     },
     closing: {
       fontSize: fontSizeValue,
       fontWeight: 'medium',
       color: '#2d3748',
-      marginTop: 20 * spacingMultiplier,
-      marginBottom: 8 * spacingMultiplier,
-      flexGrow: 1,
-      flexBasis: 0,
-      flexShrink: 1,
-      maxWidth: "100%",
-      textAlign: "left",
+      marginTop: 16 * spacingMultiplier, // Ridotto da 20
+      marginBottom: 4 * spacingMultiplier, // Ridotto da 8
     },
     signature: {
       fontSize: fontSizeValue + 1,
       fontWeight: 'semibold',
       color: themeColor, // Firma con colore del tema
-      flexGrow: 1,
-      flexBasis: 0,
-      flexShrink: 1,
-      maxWidth: "100%",
-      textAlign: "left",
     },
   });
 };
