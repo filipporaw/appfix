@@ -27,19 +27,16 @@ const createDefaultStyles = (settings: any) => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      alignItems: 'flex-start',
       marginBottom: 24 * spacingMultiplier,
       paddingBottom: 16 * spacingMultiplier,
       borderBottomWidth: 2,
       borderBottomColor: themeColor,
       borderBottomStyle: 'solid',
-      gap: 20, // Spazio tra le sezioni
     },
     nameSection: {
       display: 'flex',
       flexDirection: 'column',
       flex: 1,
-      minWidth: 0, // Permette al contenuto di ridursi
     },
     name: {
       fontSize: fontSizeValue + 8,
@@ -47,14 +44,12 @@ const createDefaultStyles = (settings: any) => {
       marginBottom: 4 * spacingMultiplier,
       color: '#1a202c', // Nome con colore originale
       lineHeight: 1.2,
-      wordWrap: 'break-word',
     },
     title: {
       fontSize: fontSizeValue + 1,
       color: themeColor, // Ruolo con colore del tema
       fontWeight: 'medium',
-      lineHeight: 1.2,
-      wordWrap: 'break-word',
+      lineHeight: 1.3,
     },
     contact: {
       display: 'flex',
@@ -62,13 +57,11 @@ const createDefaultStyles = (settings: any) => {
       alignItems: 'flex-end',
       fontSize: fontSizeValue - 2,
       color: '#718096',
-      flexShrink: 0, // Non permette di ridursi
-      maxWidth: '40%', // Limita la larghezza massima
+      flex: '0 0 auto',
     },
     contactItem: {
       marginBottom: 2 * spacingMultiplier,
       textAlign: 'right',
-      wordWrap: 'break-word',
     },
     date: {
       fontSize: fontSizeValue - 1,
