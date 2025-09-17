@@ -28,7 +28,10 @@ const createDefaultStyles = (settings: any) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginBottom: 30, // Allineato all'HTML (30pt)
-      paddingBottom: 0,
+      paddingBottom: 16, // Allineato all'HTML (16pt)
+      borderBottomWidth: 2,
+      borderBottomColor: themeColor,
+      borderBottomStyle: 'solid',
     },
     nameSection: {
       display: 'flex',
