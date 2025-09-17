@@ -13,4 +13,4 @@ export const A4_HEIGHT_PT = 842;
 export const A4_WIDTH_PX = A4_WIDTH_PT * PX_PER_PT;
 export const A4_HEIGHT_PX = A4_HEIGHT_PT * PX_PER_PT;
 
-export const DEBUG_RESUME_PDF_FLAG: true | undefined = true; // enable PDF viewer for on-screen multipage preview
+export const DEBUG_RESUME_PDF_FLAG: true | undefined = undefined; // disable PDF viewer to avoid errors
