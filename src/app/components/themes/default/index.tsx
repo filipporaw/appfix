@@ -95,6 +95,7 @@ export const ResumePDFDefault = ({
             color: DEFAULT_FONT_COLOR,
             fontFamily: fontFamily || "Roboto", // Fallback to Roboto if fontFamily is not available
             fontSize: fontSize + "pt",
+            paddingTop: spacing[8],
           }}
         >
           {Boolean(settings.themeColor) && (

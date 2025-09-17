@@ -22,8 +22,7 @@ const createMinimalStyles = (settings: any) => {
     page: {
       fontSize: fontSizeValue,
       fontFamily: fontFamilyValue,
-      padding: 30 * spacingMultiplier, // Ridotto da 40
-      lineHeight: 1.4, // Ridotto da 1.5
+      padding: 40 * spacingMultiplier, // Allineato al tema minimal HTML
       color: '#2d3748',
       backgroundColor: '#ffffff',
     },
@@ -31,8 +30,8 @@ const createMinimalStyles = (settings: any) => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 16 * spacingMultiplier, // Ridotto da 24
-      paddingBottom: 12 * spacingMultiplier, // Ridotto da 16
+      marginBottom: 24 * spacingMultiplier, // Allineato a minimal HTML
+      paddingBottom: 16 * spacingMultiplier, // Allineato a minimal HTML
     },
     nameSection: {
       display: 'flex',
@@ -40,34 +39,34 @@ const createMinimalStyles = (settings: any) => {
       flex: 1,
     },
     name: {
-      fontSize: fontSizeValue + 8, // Ripristinato per essere identico al render HTML
+      fontSize: fontSizeValue + 8,
       fontWeight: 'bold',
-      marginBottom: 2 * spacingMultiplier, // Ridotto da 4
-      color: '#0F172A', // Nome con colore del tema minimal
-      lineHeight: 1.2, // Sincronizzato con render HTML
+      marginBottom: 4 * spacingMultiplier, // Allineato a minimal HTML
+      color: '#0F172A',
+      lineHeight: 1.2,
     },
     title: {
-      fontSize: fontSizeValue + 1, // Ripristinato per essere identico al render HTML
-      color: '#64748B', // Ruolo con colore del tema minimal
+      fontSize: fontSizeValue + 1,
+      color: '#64748B',
       fontWeight: 'medium',
-      lineHeight: 1.3, // Sincronizzato con render HTML
+      lineHeight: 1.3,
     },
     contact: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-end',
-      fontSize: fontSizeValue - 2,
+      fontSize: fontSizeValue - 2, // Allineato a minimal HTML
       color: '#718096',
       flex: '0 0 auto',
     },
     contactItem: {
-      marginBottom: 1 * spacingMultiplier, // Ridotto da 2
+      marginBottom: 2 * spacingMultiplier, // Allineato a minimal HTML
       textAlign: 'right',
     },
     date: {
       fontSize: fontSizeValue - 1,
       color: '#718096',
-      marginBottom: 12 * spacingMultiplier, // Ridotto da 16
+      marginBottom: 16 * spacingMultiplier, // Allineato a minimal HTML
     },
     companyInfo: {
       marginBottom: 16 * spacingMultiplier, // Ridotto da 20
@@ -75,25 +74,25 @@ const createMinimalStyles = (settings: any) => {
     companyName: {
       fontSize: fontSizeValue + 1,
       fontWeight: 'semibold',
-      color: '#1E293B', // Nome azienda con colore del tema minimal
-      marginBottom: 2 * spacingMultiplier, // Ridotto da 4
+      color: '#1E293B',
+      marginBottom: 4 * spacingMultiplier, // Allineato a minimal HTML
     },
     jobTitle: {
       fontSize: fontSizeValue,
       color: '#4a5568',
-      marginBottom: 12 * spacingMultiplier, // Ridotto da 16
+      marginBottom: 16 * spacingMultiplier, // Allineato a minimal HTML
     },
     greeting: {
       fontSize: fontSizeValue,
       fontWeight: 'medium',
       color: '#2d3748',
-      marginBottom: 8 * spacingMultiplier, // Ridotto da 12
+      marginBottom: 12 * spacingMultiplier, // Allineato a minimal HTML
     },
     paragraph: {
       fontSize: fontSizeValue - 0.5,
-      lineHeight: 1.6, // Sincronizzato con render HTML
+      lineHeight: 1.6, // Allineato a minimal HTML
       textAlign: 'justify',
-      marginBottom: 8 * spacingMultiplier, // Ridotto da 12
+      marginBottom: 12 * spacingMultiplier, // Allineato a minimal HTML
     },
     closing: {
       fontSize: fontSizeValue,
@@ -136,12 +135,18 @@ export const CoverLetterPDF = ({ coverLetter, settings, isPDF }: CoverLetterPDFP
     },
     content: {
       greeting: profile.hiringManager || "Dear Hiring Manager,",
-      body: content ? 
-        // Dividi il contenuto in paragrafi basati su punti o frasi lunghe
-        content.split(/(?<=\.)\s+/).filter((p: string) => p.trim().length > 0) :
-        [
-          "Scrivo per esprimere il mio forte interesse per la posizione di " + profile.position + " presso " + profile.company + "."
-        ],
+      body: content && content.length > 0
+        ? content
+            .split(/\r?\n\r?\n/)
+            .map((p: string) => p.replace(/\r?\n/g, "\n"))
+            .map((p: string) => p.replace(/ {2,}/g, (m: string) => "\u00A0".repeat(m.length)))
+        : [
+            "Scrivo per esprimere il mio forte interesse per la posizione di " +
+              (profile.position || "[posizione]") +
+              " presso " +
+              (profile.company || "[azienda]") +
+              "."
+          ],
       closing: profile.closing || "Kind Regards,"
     },
     date: profile.date || new Date().toLocaleDateString('it-IT')

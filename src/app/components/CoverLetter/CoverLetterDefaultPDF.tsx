@@ -18,8 +18,8 @@ const createDefaultStyles = (settings: any) => {
     page: {
       fontSize: fontSizeValue,
       fontFamily: fontFamilyValue,
-      padding: 30 * spacingMultiplier, // Ridotto da 40
-      lineHeight: 1.4, // Ridotto da 1.5
+      padding: 40, // Allineato al render HTML
+      lineHeight: 1.5, // Allineato al render HTML
       color: '#2d3748',
       backgroundColor: '#ffffff',
     },
@@ -27,11 +27,8 @@ const createDefaultStyles = (settings: any) => {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 16 * spacingMultiplier, // Ridotto da 24
-      paddingBottom: 12 * spacingMultiplier, // Ridotto da 16
-      borderBottomWidth: 2,
-      borderBottomColor: themeColor,
-      borderBottomStyle: 'solid',
+      marginBottom: 30, // Allineato all'HTML (30pt)
+      paddingBottom: 0,
     },
     nameSection: {
       display: 'flex',
@@ -39,11 +36,11 @@ const createDefaultStyles = (settings: any) => {
       flex: 1,
     },
     name: {
-      fontSize: fontSizeValue + 8, // Ripristinato per essere identico al render HTML
+      fontSize: fontSizeValue + 8, // Allineato all'HTML (+4pt rispetto al base, in @react-pdf differenza di ~8)
       fontWeight: 'bold',
-      marginBottom: 2 * spacingMultiplier, // Ridotto da 4
-      color: '#1a202c',
-      lineHeight: 1.2, // Sincronizzato con render HTML
+      marginBottom: 8, // Allineato all'HTML (8pt)
+      color: themeColor, // Allineato all'HTML: nome con colore del tema
+      lineHeight: 1.2, // Allineato all'HTML
     },
     title: {
       fontSize: fontSizeValue + 1, // Ripristinato per essere identico al render HTML
@@ -55,21 +52,21 @@ const createDefaultStyles = (settings: any) => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-end',
-      fontSize: fontSizeValue - 2,
+      fontSize: fontSizeValue - 1, // Allineato all'HTML (-1pt)
       color: '#718096',
       flex: '0 0 auto',
     },
     contactItem: {
-      marginBottom: 1 * spacingMultiplier, // Ridotto da 2
+      marginBottom: 4, // Allineato all'HTML (4pt)
       textAlign: 'right',
     },
     date: {
       fontSize: fontSizeValue - 1,
       color: '#718096',
-      marginBottom: 12 * spacingMultiplier, // Ridotto da 16
+      marginBottom: 20, // Allineato all'HTML (20pt)
     },
     companyInfo: {
-      marginBottom: 16 * spacingMultiplier, // Ridotto da 20
+      marginBottom: 20, // Allineato all'HTML (20pt)
     },
     companyName: {
       fontSize: fontSizeValue + 1,
@@ -86,13 +83,19 @@ const createDefaultStyles = (settings: any) => {
       fontSize: fontSizeValue,
       fontWeight: 'medium',
       color: '#2d3748',
-      marginBottom: 8 * spacingMultiplier, // Ridotto da 12
+      marginBottom: 20, // Allineato all'HTML (20pt)
     },
     paragraph: {
       fontSize: fontSizeValue - 0.5,
-      lineHeight: 1.6, // Sincronizzato con render HTML
+      lineHeight: 1.5, // Allineato al render HTML
       textAlign: 'justify',
       marginBottom: 8 * spacingMultiplier, // Ridotto da 12
+    },
+    content: {
+      fontSize: fontSizeValue,
+      lineHeight: 1.5, // Allineato al render HTML
+      textAlign: 'justify',
+      marginBottom: 16 * spacingMultiplier,
     },
     closing: {
       fontSize: fontSizeValue,
@@ -128,12 +131,21 @@ export const CoverLetterDefaultPDF = ({ coverLetter, settings, isPDF }: CoverLet
     },
     content: {
       greeting: profile.hiringManager || "Dear Hiring Manager,",
-      body: content ? 
-        // Dividi il contenuto in paragrafi basati su punti o frasi lunghe
-        content.split(/(?<=\.)\s+/).filter((p: string) => p.trim().length > 0) :
-        [
-          "Scrivo per esprimere il mio forte interesse per la posizione di " + profile.position + " presso " + profile.company + "."
-        ],
+      body: content && content.length > 0
+        ? content
+            // Dividi i paragrafi su due newline per preservare i paragrafi vuoti inseriti dall'utente
+            .split(/\r?\n\r?\n/)
+            // Non trim, preserva spazi iniziali/finali; normalizza newline singoli all'interno del paragrafo
+            .map((p: string) => p.replace(/\r?\n/g, "\n"))
+            // Preserva sequenze di spazi convertendoli in non-breaking spaces
+            .map((p: string) => p.replace(/ {2,}/g, (m: string) => "\u00A0".repeat(m.length)))
+        : [
+            "Scrivo per esprimere il mio forte interesse per la posizione di " +
+              (profile.position || "[posizione]") +
+              " presso " +
+              (profile.company || "[azienda]") +
+              "."
+          ],
       closing: profile.closing || "Kind Regards,"
     },
     date: profile.date || new Date().toLocaleDateString('it-IT')
